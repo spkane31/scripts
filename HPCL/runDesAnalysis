@@ -1,0 +1,18 @@
+#!/bin/bash
+
+FILES=/testData/desMetrics/forDSRT19/warped2/*
+trace=/testData/desMetrics/forDSRT19/warped2-des-trace.txt
+rm -rf $trace
+
+for file in $FILES
+do
+	cd $file
+	echo $file >> $trace
+	date
+
+	test -e analysisData || (mkdir analysisData; /home/kanesp/desMetrics/src/desAnalysis -analyze-everything modelSummary.json >> $trace 2>&1)
+	echo
+done
+
+
+echo "Finished warped2"
